@@ -148,5 +148,5 @@ class TestCriticalPath(BaseTest):
                     "Origin field doesn't contain airport code: " + saved.flying_from_code)
         check.equal(flights_page.get_from(), saved.month + str(val.from_date), "Wrong from date")
         check.equal(flights_page.get_to(), saved.month + str(val.to_date), "Wrong to date")
-        check.equal(flights_page.get_adults(), str(val.adults+1), "Wrong adults number")
+        check.equal(flights_page.get_adults(), str(val.adults), "Wrong adults number")
         check.equal(flights_page.get_children(), str(val.children), "Wrong children number")
