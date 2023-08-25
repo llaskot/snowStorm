@@ -15,6 +15,7 @@ class MyTripPage(BasePage):
     package_block = (By.XPATH, "//h2[text()='SEARCHED']/..//li[@class='gray-block']//span[text()='Package']/../../..")
 
     t_and_c_popup = (By.XPATH, "//div[@id='CombinedpackageTnC']//div[@class='modal-content']")
+    t_and_c_block = (By.CSS_SELECTOR, "div[id='CombinedpackageTnC']")
 
     baggage_policy_popup = (By.XPATH, "//div[@class='modal fade in']//div[contains(text(), 'Baggage Policy')]/..")
     baggage_policy_popup_flights = \
@@ -28,6 +29,13 @@ class MyTripPage(BasePage):
     submit_btn = (By.XPATH, "//div[@id='InviteTripModal']//div[@class='modal-content']//button[@id='inviteTripSubmit']")
     sent_btn = (By.XPATH, "//div[@id='InviteTripModal']//div[@class='modal-content']//div[@id='sent_btn']")
 
+    def get_t_and_c_display_block(self):
+        el = self.driver.find_element(*self.t_and_c_block)
+        return el.value_of_css_property('display') == "block"
+
+    def t_and_c_popup_is_visible(self):
+        return self.find_presence(self.baggage_policy_popup).is_displayed()
+
     def get_package_num(self):
         return self.find_by(self.package).text.strip()[0]
 
@@ -36,6 +44,7 @@ class MyTripPage(BasePage):
         self.scroll_to(self.find_by(self.package_block) \
                        .find_element(By.XPATH,
                                      ".//div[@class='row accordian-head']//a[text()='Terms & Conditions']")).click()
+        time.sleep(1)
         return self
 
     def package_terms_and_cond_text(self):
