@@ -19,7 +19,7 @@ class MyTripPage(BasePage):
     baggage_policy_popup = (By.XPATH, "//div[@class='modal fade in']//div[contains(text(), 'Baggage Policy')]/..")
     baggage_policy_popup_flights = \
         (By.XPATH, "//div[@class='modal fade in']//div[contains(text(), 'Baggage Policy')]/..//tbody/tr/td[1]")
-    invite_friend = (By.XPATH, "//a[@data-target='#InviteTripModal' and contains(@class,'tooltip-toggle-friend')]/..")
+    invite_friend = (By.XPATH, "//a[@data-target='#InviteTripModal' and contains(@class,'tooltip-toggle-friend')]")
     invite_popup = (By.XPATH, "//div[@id='InviteTripModal']//div[@class='modal-content']")
     your_name_field = (By.XPATH, ".//input[@name='clientTitle']")
     next_btn = (By.XPATH, ".//button[@id='EditTripButton']")
@@ -59,7 +59,11 @@ class MyTripPage(BasePage):
         return self
 
     def click_invite_friend(self):
-        self.scroll_to(self.find_by(self.invite_friend)).click()
+        el = self.find_by(self.invite_friend)
+        self.scroll_to(el)
+        print("AAAAAAAAAAAAAA")
+        time.sleep(5)
+        el.click()
         return self
 
     def input_your_name(self, name):

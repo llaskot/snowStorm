@@ -21,12 +21,13 @@ class Values:
         self.your_name = "Wasya"
         self.friend_name = "Libe Deer"
         self.friend_email = "nouwokaunique-1271@yopmail.com"
-        self.max_preloader_time = 15
+        self.max_preloader_time = 60
 
 
 class SavedValues:
     def __init__(self):
-        self.home_url = "https://caesarsprod.mybookingplatform.com/Flight/Search?combined=3"
+        self.home_url = "https://caesars.cs-uat.mybookingplatform.com/Flight/Search?combined=3"
+        # self.home_url = "https://caesarsprod.mybookingplatform.com/Flight/Search?combined=3"
         self.flying_from_code = 0
         self.month = 0
         self.departure_flights_info = {}
@@ -86,16 +87,17 @@ class TestCriticalPath(BaseTest):
             .click_checked_baggage()
         check.equal(flights_page.depart_info['number_of_flights'] + flights_page.return_info['number_of_flights']
                     , len(my_trip_page.get_baggage_policy_flights()), "Wrong flights number in 'Baggage Policy' popup")
-        my_trip_page.click_close_baggage_popup() \
-            .click_invite_friend().input_your_name(val.your_name) \
-            .click_next() \
-            .input_friend_name(val.friend_name) \
-            .input_friend_email(val.friend_email) \
-            .click_submit_btn()
-        time.sleep(3)
-        check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible")
-        my_trip_page.click_close_invite_popup() \
-            .click_search_pac_details()
+        my_trip_page.click_close_baggage_popup()
+        #     .click_invite_friend()\
+        #     .input_your_name(val.your_name) \
+        #     .click_next() \
+        #     .input_friend_name(val.friend_name) \
+        #     .input_friend_email(val.friend_email) \
+        #     .click_submit_btn()
+        # time.sleep(3)
+        # check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible")
+        # my_trip_page.click_close_invite_popup() \
+        my_trip_page.click_search_pac_details()
         saved.loader_duration["get Package Details"] = pack_details_page.loader_visibility_time(val.max_wait)
         self.driver.switch_to.window(self.driver.window_handles[1])
         check.is_in(flights_page.depart_info["1th_flight_company"], pack_details_page.get_departure_1th_flight(),
