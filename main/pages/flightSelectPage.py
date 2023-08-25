@@ -9,6 +9,8 @@ class FlightSelectPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
+        self.depart_info = None
+        self.return_info = None
 
     origin_field = (By.CSS_SELECTOR, "div[class='origin-block']>h3")
     from_field = (By.CSS_SELECTOR, "div[class='date-from-block']>h3")
@@ -28,6 +30,7 @@ class FlightSelectPage(BasePage):
     person_prise_field = (By.XPATH, ".//span[@class='priceFROM']/../sapn")
     total_prise_field = (By.XPATH, ".//div[@class='small-txt-price ng-binding']")
     select_flight_btn = (By.XPATH, ".//button[text()='Select Flight']")
+    page_bottom = (By.CSS_SELECTOR, "div[class='why-book-wrapper']")
 
     def get_origin(self):
         return self.find_by(self.origin_field).text.upper()
@@ -87,3 +90,40 @@ class FlightSelectPage(BasePage):
         time.sleep(0.4)
         web_el.click()
         self.loader_visibility(45)
+
+    def click_select_flight_btn(self, company_name):
+        visible_flights = self.all_flight_containers()
+        web_el = visible_flights[0]
+        for flight in visible_flights:
+            companies = []
+            for comp in flight.find_elements(*self.flight_company_field):
+                companies.append(comp.text.strip())
+            if companies.count(company_name) == len(companies):
+                web_el = flight
+                break
+        self.scroll_to(web_el.find_element(*self.select_flight_btn))
+        self.depart_info = self.get_departure_info(visible_flights.index(web_el)+1)
+        self.return_info = self.get_return_info(visible_flights.index(web_el)+1)
+        time.sleep(0.4)
+        web_el.find_element(*self.select_flight_btn).click()
+
+    def scroll_flights(self):
+        flights = 0
+        visible_flights = self.all_flight_containers()
+        if len(visible_flights) == 0:
+            print("!!!!!!!!!! NO FLIGHTS THESE DAYS   !!!!!!!!!!!!!!!!!!")
+        elif len(visible_flights) == 50:
+            while len(visible_flights) > flights:
+                # print("\nflights = ", flights)
+                # print("real flights = ", len(visible_flights))
+                flights = len(visible_flights)
+                self.scroll_to(visible_flights[len(visible_flights)-5])
+                time.sleep(0.7)
+                self.scroll_to(visible_flights[len(visible_flights)-3])
+                time.sleep(0.7)
+                self.scroll_to(self.find_by(self.page_bottom))
+                time.sleep(2.5)
+                visible_flights = self.all_flight_containers()
+                # print("\nnew flights = ", flights)
+                # print("new real flights = ", len(visible_flights))
+        return self

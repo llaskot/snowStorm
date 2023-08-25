@@ -10,6 +10,9 @@ class FlightsAndHotelPage(BasePage):
     def get_page_flight_and_hotels(self):
         self.driver.get("https://caesarsuat.mybookingplatform.com/Flight/Search?combined=3")
 
+    def get_page_flight_and_hotels(self, url):
+        self.driver.get(url)
+
     flying_from_input = (By.XPATH, "//input[@placeholder='Enter']")
     airports_drp_items = (By.XPATH, "//div[@class='field_dropdown place_list flight-suggestion-dropdown']/ul/li[1]")
     travelers_field = (By.XPATH, "//div[contains(@class,'room-occupant-box')]/div[1]")
@@ -94,6 +97,7 @@ class FlightsAndHotelPage(BasePage):
         self.click_datepicker_next_month() \
             .click_datepicker_next_month() \
             .click_datepicker_next_month() \
+            .click_datepicker_next_month() \
             .click_datepicker_day(day)
         return FlightsAndHotelPage(self.driver)
 
@@ -104,6 +108,10 @@ class FlightsAndHotelPage(BasePage):
     def click_continue_as_guest_btn(self):
         self.find_clickable(self.continue_as_guest_btn).click()
         self.loader_visibility(45)
+
+    def click_continue_as_guest_btn_no_wait(self):
+        self.find_clickable(self.continue_as_guest_btn).click()
+
 
     def get_1_airport_code(self):
         text = self.find_elements(self.airports_drp_items)[0].text

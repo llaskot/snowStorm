@@ -14,7 +14,8 @@ class RoomPage(BasePage):
     payment_info = (By.XPATH, ".//div[@class='text-center price']/div[@class='p2']")
     details = (By.XPATH, ".//div[contains(@class, 'hotel_details_block_new')]/h4")
     proceed_to_checkout_btn = (
-        By.XPATH, ".//div[@class='row detailsPagePriceBlock']//button[text()='PROCEED TO CHECKOUT']")
+        By.XPATH, ".//div[@class='row detailsPagePriceBlock']//button[text()='SELECT ROOM']")
+    add_to_trip_btn = (By.XPATH, ".//p[@class='addToTripSepCheckout']")
 
     def get_room_info(self, room_container):
         room = self.find_elements(self.all_rooms_container)[room_container - 1]
@@ -32,3 +33,11 @@ class RoomPage(BasePage):
         time.sleep(1)
         web_el.click()
         self.loader_visibility(45)
+
+    def click_add_to_trip(self, room_container):
+        web_el = self.find_elements(self.all_rooms_container)[room_container - 1] \
+            .find_element(*self.add_to_trip_btn)
+        self.scroll_to(web_el)
+        time.sleep(0.5)
+        web_el.click()
+
