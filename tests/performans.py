@@ -88,15 +88,17 @@ class TestCriticalPath(BaseTest):
         check.equal(flights_page.depart_info['number_of_flights'] + flights_page.return_info['number_of_flights']
                     , len(my_trip_page.get_baggage_policy_flights()), "Wrong flights number in 'Baggage Policy' popup")
         my_trip_page.click_close_baggage_popup()
-        #     .click_invite_friend()\
-        #     .input_your_name(val.your_name) \
-        #     .click_next() \
-        #     .input_friend_name(val.friend_name) \
-        #     .input_friend_email(val.friend_email) \
-        #     .click_submit_btn()
-        # time.sleep(3)
-        # check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible")
-        # my_trip_page.click_close_invite_popup() \
+
+        my_trip_page.click_invite_friend()\
+            .input_your_name(val.your_name) \
+            .click_next() \
+            .input_friend_name(val.friend_name) \
+            .input_friend_email(val.friend_email) \
+            .click_submit_btn()
+        time.sleep(3)
+        check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible")
+        my_trip_page.click_close_invite_popup()
+
         my_trip_page.click_search_pac_details()
         saved.loader_duration["get Package Details"] = pack_details_page.loader_visibility_time(val.max_wait)
         self.driver.switch_to.window(self.driver.window_handles[1])

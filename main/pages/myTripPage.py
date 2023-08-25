@@ -60,8 +60,8 @@ class MyTripPage(BasePage):
 
     def click_invite_friend(self):
         el = self.find_by(self.invite_friend)
-        self.scroll_to(el)
-        print("AAAAAAAAAAAAAA")
+        a = (By.XPATH, "//a[text()='EDocs']")
+        self.scroll_to(self.find_by(a))
         time.sleep(5)
         el.click()
         return self
