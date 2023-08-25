@@ -26,8 +26,8 @@ class Values:
 
 class SavedValues:
     def __init__(self):
-        self.home_url = "https://caesars.cs-uat.mybookingplatform.com/Flight/Search?combined=3"
-        # self.home_url = "https://caesarsprod.mybookingplatform.com/Flight/Search?combined=3"
+        # self.home_url = "https://caesars.cs-uat.mybookingplatform.com/Flight/Search?combined=3"
+        self.home_url = "https://caesarsprod.mybookingplatform.com/Flight/Search?combined=3"
         self.flying_from_code = 0
         self.month = 0
         self.departure_flights_info = {}
