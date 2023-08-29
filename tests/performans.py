@@ -59,20 +59,21 @@ class TestCriticalPath(BaseTest):
             .click_search_btn() \
             .click_continue_as_guest_btn_no_wait()
         saved.loader_duration["search flights"] = flights_page.loader_visibility_time(val.max_wait)
-        flights_page.click_close_banner_btn() \
-            .scroll_flights() \
+        # flights_page.click_close_banner_btn() \
+        flights_page.scroll_flights() \
             .click_select_flight_btn(val.avia_company)
         saved.loader_duration["select flight"] = hotel_search_page.loader_visibility_time(val.max_wait)
-        hotel_search_page.click_close_banner_btn() \
-            .click_select_room_btn(val.hotels)
+        # hotel_search_page.click_close_banner_btn() \
+        hotel_search_page.click_select_room_btn(val.hotels)
         saved.loader_duration["Select hotel"] = room_page.loader_visibility_time(val.max_wait)
-        room_page.click_close_banner_btn() \
-            .click_add_to_trip(1)
+        # room_page.click_close_banner_btn() \
+        hotel_search_page.click_add_to_trip(1)
+        time.sleep(30)
         saved.loader_duration["add to my trip"] = room_page.loader_visibility_time(val.max_wait)
         time.sleep(1)
         room_page.click_my_trip()
         saved.loader_duration["get my trip"] = my_trip_page.loader_visibility_time(val.max_wait)
-        my_trip_page.click_close_banner_btn()
+        # my_trip_page.click_close_banner_btn()
         check.equal(my_trip_page.get_package_num(), "1", "ERROR: Incorrect package number")
         my_trip_page.click_terms_cond()
         if my_trip_page.get_t_and_c_display_block():
