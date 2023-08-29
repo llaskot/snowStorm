@@ -101,8 +101,9 @@ class TestCriticalPath(BaseTest):
             .input_friend_name(val.friend_name) \
             .input_friend_email(val.friend_email) \
             .click_submit_btn()
-        time.sleep(30)
-        check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible in 5 sec")
+        # time.sleep(30)
+        check.is_true(my_trip_page.get_visibility_sent_btn(val.invitation_sent_time),
+                      f"Button 'SENT' is not visible in {val.invitation_sent_time} sec")
         my_trip_page.click_close_invite_popup()
 
         my_trip_page.click_search_pac_details()
