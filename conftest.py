@@ -4,7 +4,6 @@ import pytest
 from selenium import webdriver
 
 
-
 @pytest.fixture(params=["chrome"])
 def initialize_driver(request):
     if request.param == "chrome":
@@ -19,23 +18,3 @@ def initialize_driver(request):
     yield
     print("Close Driver")
     driver.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
