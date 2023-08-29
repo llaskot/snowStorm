@@ -67,7 +67,7 @@ class TestCriticalPath(BaseTest):
         hotel_search_page.click_select_room_btn(val.hotels)
         saved.loader_duration["Select hotel"] = room_page.loader_visibility_time(val.max_wait)
         # room_page.click_close_banner_btn() \
-        hotel_search_page.click_add_to_trip(1)
+        room_page.click_add_to_trip(1)
         time.sleep(30)
         saved.loader_duration["add to my trip"] = room_page.loader_visibility_time(val.max_wait)
         time.sleep(1)
