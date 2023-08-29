@@ -1,4 +1,5 @@
 import json
+import random
 import time
 import pytest_check as check
 
@@ -14,20 +15,21 @@ from tests.baseTest import BaseTest
 class Values:
     def __init__(self):
         self.flying_from = 'LAX'
-        self.from_date = 12
+        self.from_date = random.randint(8, 22)
         self.max_wait = 300
         self.avia_company = "United Airlines"
         self.hotels = ["FLAMINGO LAS VEGAS", "RIO ALL-SUITE HOTEL & CASINO"]
-        self.your_name = "Wasya"
-        self.friend_name = "Libe Deer"
+        self.your_name = "Alayna Sanudo"
+        self.friend_name = "Elena Besedina"
         self.friend_email = "nouwokaunique-1271@yopmail.com"
-        self.max_preloader_time = 60
+        self.max_preloader_time = 180
 
 
 class SavedValues:
     def __init__(self):
         # self.home_url = "https://caesars.cs-uat.mybookingplatform.com/Flight/Search?combined=3"
-        self.home_url = "https://caesarsprod.mybookingplatform.com/Flight/Search?combined=3"
+        # self.home_url = "https://caesarsprod.mybookingplatform.com/Flight/Search?combined=3"
+        self.home_url = "https://flights-hotels.caesars.com/Flight/Search?combined=3"
         self.flying_from_code = 0
         self.month = 0
         self.departure_flights_info = {}
@@ -101,7 +103,7 @@ class TestCriticalPath(BaseTest):
             .input_friend_name(val.friend_name) \
             .input_friend_email(val.friend_email) \
             .click_submit_btn()
-        time.sleep(5)
+        time.sleep(30)
         check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible in 5 sec")
         my_trip_page.click_close_invite_popup()
 
