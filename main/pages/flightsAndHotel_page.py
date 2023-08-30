@@ -34,7 +34,7 @@ class FlightsAndHotelPage(BasePage):
         return FlightsAndHotelPage(self.driver)
 
     def click_1st_airports_drp_item(self):
-        self.find_elements(self.airports_drp_items, 5)[0].click()
+        self.find_elements(self.airports_drp_items)[0].click()
         return FlightsAndHotelPage(self.driver)
 
     def click_travelers_field(self):
