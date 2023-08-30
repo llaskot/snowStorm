@@ -1,5 +1,6 @@
 import time
 
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from main.pages.basePage import BasePage
@@ -34,7 +35,13 @@ class MyTripPage(BasePage):
         return el.value_of_css_property('display') == "block"
 
     def t_and_c_popup_is_visible(self):
-        return self.find_presence(self.baggage_policy_popup).is_displayed()
+        res = False
+        try:
+            res = self.find_presence(self.baggage_policy_popup, 5).is_displayed()
+        except:
+            NoSuchElementException
+            print(f"NoSuchElementException trying to find webElement {self.baggage_policy_popup}")
+        return res
 
     def get_package_num(self):
         return self.find_by(self.package).text.strip()[0]
@@ -95,7 +102,14 @@ class MyTripPage(BasePage):
         self.find_clickable(self.submit_btn).click()
         return self
 
-    def get_visibility_sent_btn(self):
+    def get_visibility_sent_btn(self, wait):
+        counter = 0
+        while not self.find_presence(self.sent_btn, 3).is_displayed():
+            time.sleep(1)
+            counter += 1
+            if counter >= wait:
+                break
+        print(f"waiting for invitation gets sent {counter} seconds" )
         return self.find_presence(self.sent_btn, 3).is_displayed()
 
     def click_close_invite_popup(self):

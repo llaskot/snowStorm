@@ -23,6 +23,7 @@ class Values:
         self.friend_name = "Elena Besedina"
         self.friend_email = "nouwokaunique-1271@yopmail.com"
         self.max_preloader_time = 180
+        self.invitation_sent_time = 30
 
 
 class SavedValues:
@@ -86,10 +87,10 @@ class TestCriticalPath(BaseTest):
                         "\nPACKAGE TERMS & CONDITIONS popup does not contains text: "
                         "Cancelable, non-changeable and non-refundable.")
             my_trip_page.click_package_t_c_popup_close()
-            print("PACKAGE TERMS & CONDITIONS popup has been reviewed")
+            print("\nPACKAGE TERMS & CONDITIONS popup has been reviewed")
         else:
             check.is_true(my_trip_page.t_and_c_popup_is_visible())
-            print("PACKAGE TERMS & CONDITIONS popup has NOT been reviewed")
+            print("\nPACKAGE TERMS & CONDITIONS popup has NOT been reviewed")
 
         my_trip_page.click_checked_baggage()
         check.equal(flights_page.depart_info['number_of_flights'] + flights_page.return_info['number_of_flights']
@@ -102,8 +103,9 @@ class TestCriticalPath(BaseTest):
             .input_friend_name(val.friend_name) \
             .input_friend_email(val.friend_email) \
             .click_submit_btn()
-        time.sleep(30)
-        check.is_true(my_trip_page.get_visibility_sent_btn(), "Button 'SENT' is not visible in 5 sec")
+        # time.sleep(30)
+        check.is_true(my_trip_page.get_visibility_sent_btn(val.invitation_sent_time),
+                      f"Button 'SENT' is not visible in {val.invitation_sent_time} sec")
         my_trip_page.click_close_invite_popup()
 
         my_trip_page.click_search_pac_details()
