@@ -110,7 +110,7 @@ class FlightsAndHotelPage(BasePage):
         self.loader_visibility(45)
 
     def click_continue_as_guest_btn_no_wait(self):
-        self.find_clickable(self.continue_as_guest_btn).click()
+        self.find_by(self.continue_as_guest_btn, 60).click()
 
 
     def get_1_airport_code(self):
