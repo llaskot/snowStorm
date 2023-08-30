@@ -7,4 +7,5 @@ pip3 install allure-pytest
 pip install pytest-check
 pip install pytest-html
 pip install webdriver-manager
+pip install --upgrade selenium
 pause
