@@ -37,6 +37,7 @@ class MyTripPage(BasePage):
     def t_and_c_popup_is_visible(self):
         res = False
         try:
+            time.sleep(2)
             res = self.find_presence(self.baggage_policy_popup).is_displayed()
         except:
             NoSuchElementException
