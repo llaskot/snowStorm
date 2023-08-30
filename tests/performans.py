@@ -123,3 +123,19 @@ class TestCriticalPath(BaseTest):
                              "Preloader " + key + " has been worked longer then expected " + str(
                                  val.max_preloader_time) + " sec")
         time.sleep(5)
+
+    def test_light(self):
+        fh_page = FlightsAndHotelPage(self.driver)
+        flights_page = FlightSelectPage(self.driver)
+        hotel_search_page = HotelSearchPage(self.driver)
+        room_page = RoomPage(self.driver)
+        my_trip_page = MyTripPage(self.driver)
+        pack_details_page = PackageDetailsPage(self.driver)
+        val = Values()
+        saved = SavedValues()
+        fh_page.get_page_flight_and_hotels(saved.home_url)
+        fh_page.input_flying_from(val.flying_from)
+        fh_page.click_1st_airports_drp_item() \
+            .click_from_field() \
+            .select_date(val.from_date) \
+            .click_search_btn()
