@@ -35,7 +35,7 @@ class FlightsAndHotelPage(BasePage):
         return FlightsAndHotelPage(self.driver)
 
     def click_1st_airports_drp_item(self):
-        self.find_elements(self.airports_drp_items, 5)[0].click()
+        self.find_elements(self.airports_drp_items)[0].click()
         return FlightsAndHotelPage(self.driver)
 
     def click_travelers_field(self):
@@ -111,7 +111,7 @@ class FlightsAndHotelPage(BasePage):
         self.loader_visibility(45)
 
     def click_continue_as_guest_btn_no_wait(self):
-        self.find_clickable(self.continue_as_guest_btn).click()
+        self.find_by(self.continue_as_guest_btn, 60).click()
 
     def click_sign_in_btn(self):
         self.find_clickable(self.sign_in_btn).click()

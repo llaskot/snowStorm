@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 from selenium import webdriver
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(params=["chrome"])
 def initialize_driver(request):
