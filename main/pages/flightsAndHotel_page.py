@@ -27,6 +27,7 @@ class FlightsAndHotelPage(BasePage):
     datepicker_days = (By.XPATH, "//div[@class='datepicker-days']//tbody//td")
     search_btn = (By.CSS_SELECTOR, "div[class='flight-search-btn-holder']")
     continue_as_guest_btn = (By.XPATH, "//button[text()='Continue as guest']")
+    sign_in_btn = (By.XPATH, "//button[text()='Sign in / Sign up for free']")
     month = (By.CSS_SELECTOR, "span[class='month focused active']")
 
     def input_flying_from(self, val):
@@ -112,6 +113,8 @@ class FlightsAndHotelPage(BasePage):
     def click_continue_as_guest_btn_no_wait(self):
         self.find_clickable(self.continue_as_guest_btn).click()
 
+    def click_sign_in_btn(self):
+        self.find_clickable(self.sign_in_btn).click()
 
     def get_1_airport_code(self):
         text = self.find_elements(self.airports_drp_items)[0].text

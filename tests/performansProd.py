@@ -2,6 +2,7 @@ import json
 import random
 import time
 import pytest_check as check
+import tests.credentials
 
 from main.pages.flightSelectPage import FlightSelectPage
 from main.pages.flightsAndHotel_page import FlightsAndHotelPage
@@ -10,6 +11,7 @@ from main.pages.myTripPage import MyTripPage
 from main.pages.packageDetailsPage import PackageDetailsPage
 from main.pages.roomsPage import RoomPage
 from tests.baseTest import BaseTest
+from main.pages.sign_in_page import SignInPage
 
 
 class Values:
@@ -23,6 +25,8 @@ class Values:
         self.friend_name = "Elena Besedina"
         self.friend_email = "nouwokaunique-1271@yopmail.com"
         self.max_preloader_time = 180
+        self.login = tests.credentials.login
+        self.password = tests.credentials.password
 
 
 class SavedValues:
@@ -123,3 +127,39 @@ class TestCriticalPath(BaseTest):
                              "Preloader " + key + " has been worked longer then expected " + str(
                                  val.max_preloader_time) + " sec")
         time.sleep(5)
+
+
+    def test_user_path(self):
+        fh_page = FlightsAndHotelPage(self.driver)
+        sign_in_page = SignInPage(self.driver)
+        flights_page = FlightSelectPage(self.driver)
+        hotel_search_page = HotelSearchPage(self.driver)
+        room_page = RoomPage(self.driver)
+        my_trip_page = MyTripPage(self.driver)
+        pack_details_page = PackageDetailsPage(self.driver)
+        val = Values()
+        saved = SavedValues()
+        fh_page.get_page_flight_and_hotels(saved.home_url)
+        time.sleep(15)
+        fh_page.input_flying_from(val.flying_from)
+        fh_page.click_1st_airports_drp_item() \
+            .click_from_field() \
+            .select_date(val.from_date) \
+            .click_search_btn() \
+            .click_sign_in_btn()
+        saved.loader_duration["\ngo to sign in page"] = sign_in_page.loader_visibility_time(val.max_wait)
+
+        time.sleep(2)
+        sign_in_page.input_login(val.login)
+        time.sleep(2)
+        sign_in_page.input_password(val.password)
+        time.sleep(100)
+        sign_in_page.click_sign_in()
+        saved.loader_duration["search flights"] = flights_page.loader_visibility_time(val.max_wait)
+
+        for key in saved.loader_duration:
+            print(key, saved.loader_duration[key])
+            check.less_equal(saved.loader_duration[key], val.max_preloader_time,
+                             "Preloader " + key + " has been worked longer then expected " + str(
+                                 val.max_preloader_time) + " sec")
+        time.sleep(10000)
